@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    HM,VS-->
+    <bean  class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/login.do">login</prop>
+                <prop key="/main.do">main</prop>
+                <prop key="/board.do">board</prop>
+                <prop key="/logout.do">logout</prop>
+                <prop key="/insertBoard.do">insert</prop>
+                <prop key="/deleteBoard.do">delete</prop>
+                <prop key="/updateBoard.do">update</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean class="com.lee.member.LoginController" id="login"></bean>
+    <bean class="com.lee.member.LogoutController" id="logout"></bean>
+    <bean class="com.lee.board.MainController" id="main"></bean>
+    <bean class="com.lee.board.BoardController" id="board"></bean>
+    <bean class="com.lee.board.InsertBoardController" id="insert"></bean>
+    <bean class="com.lee.board.UpdateBoardController" id="update"></bean>
+    <bean class="com.lee.board.DeleteBoardController" id="delete"></bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/test/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>
