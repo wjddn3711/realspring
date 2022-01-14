@@ -20,6 +20,7 @@ public class BoardServiceImpl implements BoardService {
 	public void insertBoard(BoardVO vo) {
 
 		boardDAO.insertBoard(vo);
+		boardDAO.insertBoard(vo); // 트랜잭션 실습중
 	}
 
 	@Override
@@ -42,10 +43,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardVO> selectAll(BoardVO vo) {
-		if(vo.getWriter().equals("티모")){
-			throw new IllegalArgumentException("일부러 발생시킨 예외");
-		}
+//		if(vo.getWriter().equals("티모")){
+//			throw new IllegalArgumentException("일부러 발생시킨 예외");
+//		}
 		return boardDAO.selectAll(vo);
 	}
+
+
 
 }

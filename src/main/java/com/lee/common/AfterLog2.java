@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Aspect
 public class AfterLog2 {
-    @After("PointcutCommon.bPointcut()")
+//    @After("PointcutCommon.bPointcut()")
     public void printLog(JoinPoint jp){
         System.out.println("수행 메서드는 :"+jp.getSignature().getName());
         Object[] args = jp.getArgs();

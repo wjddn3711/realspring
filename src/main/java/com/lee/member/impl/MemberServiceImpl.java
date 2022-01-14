@@ -20,7 +20,17 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO selectOne(MemberVO vo) {
-		return memberDAO.selectOne(vo);
+		try {
+			return memberDAO.selectOne(vo);
+		} catch (Exception e) {
+			return null; // 문제가 있는 경우 null을 반환하도록
+		}
+	}
+
+	@Override
+	public void insert(MemberVO vo) throws Exception{
+			memberDAO.insert(vo);
+			memberDAO.insert(vo);
 	}
 
 }

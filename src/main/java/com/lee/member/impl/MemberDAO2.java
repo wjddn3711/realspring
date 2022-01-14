@@ -15,11 +15,18 @@ public class MemberDAO2 {
     private JdbcTemplate jdbcTemplate;
 
     private String member_selectOne="select * from member2 where mid=? and password=?";
+    private String member_insert ="insert into member2 values (?,?,?,?)";
 
-    public MemberVO selectOne(MemberVO vo) {
+    public MemberVO selectOne(MemberVO vo) throws Exception { // 모델에서 처리하지 않고 예외를 떠넘긴다
         Object[] obj = {vo.getMid(),vo.getPassword()};
         return jdbcTemplate.queryForObject(member_selectOne,obj, new MemberRowMapper());
     }
+
+    public void insert(MemberVO vo){
+        System.out.println("insert 수행중");
+        jdbcTemplate.update(member_insert,vo.getMid(),vo.getPassword(),vo.getName(),vo.getRole());
+    }
+
 }
 class MemberRowMapper implements RowMapper<MemberVO>{
     @Override
