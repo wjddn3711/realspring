@@ -5,25 +5,52 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lee.board.impl.BoardDAO;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
-public class BoardController implements Controller {
+@Controller
+public class BoardController{
+	// board
+	@RequestMapping(value = "/board.do")
+	public String board(BoardVO vo, BoardDAO dao, ModelAndView mav, HttpServletRequest request, Model model){
+		System.out.println("로그 : board() @컨트롤러");
+		model.addAttribute("data",dao.selectOne(vo));
+		return "board.jsp";
+	}
 
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		BoardVO vo=new BoardVO();
-		vo.setBid(Integer.parseInt(request.getParameter("bid")));
-		BoardDAO dao=new BoardDAO();
-		BoardVO data=dao.selectOne(vo);
-		
-		HttpSession session=request.getSession();
-		session.setAttribute("data", data);
+	// main
+	@RequestMapping("/main.do")
+	public String main(BoardVO vo, BoardDAO dao, ModelAndView mav, Model model){
+		System.out.println("로그 : main 수행");
+		model.addAttribute("datas",dao.selectAll(vo));
+		return "main.jsp";
+	}
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("data",data);
-		mav.setViewName("board");
-		return mav;
+	// update
+	@RequestMapping(value = "/updateBoard.do")
+	public String updateBoard(BoardVO vo, BoardDAO dao){
+		System.out.println("로그 : update보드 수행중");
+		dao.updateBoard(vo);
+		return "main.do";
+	}
+
+	// insert
+	@RequestMapping(value = "/insertBoard.do") // handlerMapping 대체
+	public String insertBoard(BoardVO vo, BoardDAO dao){
+		System.out.println("로그 : insertBoard() @컨트롤러");
+		dao.insertBoard(vo);
+		return "main.do";
+	}
+
+	// delete
+	@RequestMapping(value = "/deleteBoard.do")
+	public String deleteBoard(BoardVO vo, BoardDAO dao){
+		System.out.println("로그 : deleteBoard 수행중");
+		dao.deleteBoard(vo);
+		return "main.do";
 	}
 
 }

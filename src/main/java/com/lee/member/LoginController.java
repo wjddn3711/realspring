@@ -6,30 +6,47 @@ import javax.servlet.http.HttpSession;
 
 import com.lee.member.impl.MemberDAO;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
+@Controller
+public class LoginController{
+	// 오버로딩 			vs 	오버라이딩
+	// 함수명 중복정의 허용	vs 	메서드 재정의
 
-public class LoginController implements Controller {
-
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		MemberVO vo=new MemberVO();
-		vo.setMid(request.getParameter("mid"));
-		vo.setPassword(request.getParameter("password"));
-		MemberDAO dao=new MemberDAO();
-		MemberVO data=dao.selectOne(vo);
-		System.out.println("LC: "+data);
-		ModelAndView mav = new ModelAndView();
-		if(data!=null) {
-			mav.addObject("member",data); // 만약 동작해버리면 /WEB-INF/test/main.do.jsp
-			mav.setViewName("redirect:main.do");
-		}
-		else {
-			mav.setViewName("redirect:login.jsp");
-			// VR: 확장자여부확인 -> .jsp 자동추가
-		}
-		return mav;
+	// login
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	public String showLogin(@ModelAttribute("user")MemberVO vo){
+		System.out.println("로그 : 요청방식 실습_GET");
+		vo.setMid("kim");
+		vo.setPassword("1234");
+		return "login.jsp";
 	}
 
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login(MemberVO vo, MemberDAO dao, HttpSession session){
+		System.out.println("로그 : login() @controller");
+		MemberVO data = dao.selectOne(vo);
+		if(data!=null) {
+			session.setAttribute("userName",data.getName());
+			return "main.do";
+//			mav.addObject("member",data); // 만약 동작해버리면 /WEB-INF/test/main.do.jsp
+//			mav.setViewName("main.do");
+		}
+//		else {
+//			mav.setViewName("login.jsp");
+//			// VR: 확장자여부확인 -> .jsp 자동추가
+//		}
+		return "index.jsp";
+	}
+	// logout
+	@RequestMapping(value = "/logout.do")
+	public String logout(HttpSession session){
+		System.out.println("로그 : logout() @controller");
+		session.invalidate();
+		return "login.jsp";
+	}
 }

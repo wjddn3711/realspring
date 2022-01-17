@@ -10,6 +10,7 @@
 <body>
 
 <h1>게시글 목록</h1>
+<h2>${userName}님, 안녕하세요! :D</h2>
 <a href="logout.do">로그아웃</a>
 
 <hr>
@@ -47,7 +48,7 @@
 
 <hr>
 
-<a href="../../insertBoard.jsp">글 작성하기</a>
+<a href="insertBoard.jsp">글 작성하기</a>
 
 </body>
 </html>

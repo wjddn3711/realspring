@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <a href="login.do">로그인하러가기</a>
   </body>
 </html>

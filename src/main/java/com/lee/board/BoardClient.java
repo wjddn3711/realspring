@@ -8,7 +8,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class BoardClient {
 
 	public static void main(String[] args) {
-		AbstractApplicationContext factory=new GenericXmlApplicationContext("applicationContext.xml");
+		AbstractApplicationContext factory=new GenericXmlApplicationContext("WEB-INF/applicationContext.xml");
 		
 		BoardService bs=(BoardService)factory.getBean("boardService");
 		// 게시글 작성하기 버튼을 누름

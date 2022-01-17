@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MemberClient {
 	public static void main(String[] args) {
-		AbstractApplicationContext factory=new GenericXmlApplicationContext("/applicationContext.xml");
+		AbstractApplicationContext factory=new GenericXmlApplicationContext("/WEB-INF/applicationContext.xml");
 		
 		MemberService ms=(MemberService)factory.getBean("memberService");
 		Scanner sc = new Scanner(System.in);
