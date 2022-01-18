@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
 	@Autowired
-	private MemberDAO2 memberDAO;
+	private MemberDAO memberDAO;
 //
 //	public MemberDAO getMemberDAO() {
 //		return memberDAO;
@@ -27,10 +27,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	@Override
-	public void insert(MemberVO vo) throws Exception{
-			memberDAO.insert(vo);
-			memberDAO.insert(vo);
-	}
+//	@Override
+//	public void insert(MemberVO vo) throws Exception{
+//			memberDAO.insert(vo);
+//			memberDAO.insert(vo);
+//	}
 
 }

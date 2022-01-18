@@ -12,7 +12,7 @@ import com.lee.common.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
 
-//@Repository("boardDAO")
+@Repository("boardDAO")
 public class BoardDAO {
 	private Connection conn=null;
 	private PreparedStatement pstmt=null;
@@ -20,7 +20,7 @@ public class BoardDAO {
 	
 	private String board_insert="insert into board2(title,writer,content) values(?,?,?)";
 	private String board_update="update board2 set title=?,content=? where bid=?";
-	private String board_delete="delete board2 where bid=?";
+	private String board_delete="delete from board2 where bid=?";
 	private String board_selectOne="select * from board2 where bid=?";
 	private String board_selectAll="select * from board2 order by bid desc";
 

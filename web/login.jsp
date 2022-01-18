@@ -23,6 +23,6 @@
 		</tr>
 	</table>
 </form>
-
+<a href="signup.jsp">회원가입하기</a>
 </body>
 </html>

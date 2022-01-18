@@ -10,8 +10,9 @@
 <body>
 
 <h1>게시글 목록</h1>
-<h2>${userName}님, 안녕하세요! :D</h2>
+<h2>${user.name}님, 안녕하세요! :D</h2>
 <a href="logout.do">로그아웃</a>
+<a href="mypage.do">마이페이지</a>
 
 <hr>
 
@@ -19,8 +20,9 @@
 	<table width="1000">
 		<tr>
 			<td><select name="searchCondition">
-				<option value="title">제목</option>
-				<option value="writer">작성자</option>
+				<c:forEach items="${conditionMap}" var="v">
+					<option value=${v.value}>${v.key}</option>
+				</c:forEach>
 			</select></td>
 			<td><input type="text" name="searchContent" /></td>
 			<td><input type="submit" value="검색하기" /></td>

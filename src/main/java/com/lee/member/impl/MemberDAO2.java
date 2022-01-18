@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Repository("memberDAO")
+//@Repository("memberDAO")
 public class MemberDAO2 {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -22,7 +22,7 @@ public class MemberDAO2 {
         return jdbcTemplate.queryForObject(member_selectOne,obj, new MemberRowMapper());
     }
 
-    public void insert(MemberVO vo){
+    public void insert(MemberVO vo) throws Exception{
         System.out.println("insert 수행중");
         jdbcTemplate.update(member_insert,vo.getMid(),vo.getPassword(),vo.getName(),vo.getRole());
     }

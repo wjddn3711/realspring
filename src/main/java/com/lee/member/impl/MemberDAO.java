@@ -10,14 +10,30 @@ import com.lee.member.MemberVO;
 import org.springframework.stereotype.Repository;
 
 
-//@Repository("memberDAO")
+@Repository("memberDAO")
 public class MemberDAO {
 	private Connection conn=null;
 	private PreparedStatement pstmt=null;
 	private ResultSet rs=null;
 	
 	private String member_selectOne="select * from member2 where mid=? and password=?";
-	
+	private String member_update ="update member set password=?,name=? where mid=?";
+
+	public void updateMember(MemberVO vo){
+		try {
+			conn=JDBCUtil.connect();
+			pstmt = conn.prepareStatement(member_update);
+			pstmt.setString(1,vo.getPassword());
+			pstmt.setString(2,vo.getName());
+			pstmt.setString(3,vo.getMid());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.disconnect(pstmt, conn);
+		}
+	}
+
 	public MemberVO selectOne(MemberVO vo) {
 		MemberVO data=null;
 		conn= JDBCUtil.connect();

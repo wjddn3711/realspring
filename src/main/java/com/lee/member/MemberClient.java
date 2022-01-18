@@ -24,7 +24,7 @@ public class MemberClient {
 		vo.setPassword(sc.next());
 		vo.setRole("USER");
 		try {
-			ms.insert(vo);
+//			ms.insert(vo);
 		} catch (Exception e) {
 			System.out.println("트랜잭션 처리중 예외가 발생하였음");
 		}
