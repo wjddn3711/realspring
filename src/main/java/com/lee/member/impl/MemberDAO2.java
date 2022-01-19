@@ -9,22 +9,28 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//@Repository("memberDAO")
+@Repository("memberDAO")
 public class MemberDAO2 {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     private String member_selectOne="select * from member2 where mid=? and password=?";
     private String member_insert ="insert into member2 values (?,?,?,?)";
+    private String member_update ="update member set password=?,name=? where mid=?";
 
     public MemberVO selectOne(MemberVO vo) throws Exception { // 모델에서 처리하지 않고 예외를 떠넘긴다
         Object[] obj = {vo.getMid(),vo.getPassword()};
         return jdbcTemplate.queryForObject(member_selectOne,obj, new MemberRowMapper());
     }
 
-    public void insert(MemberVO vo) throws Exception{
+    public void insert(MemberVO vo){
         System.out.println("insert 수행중");
         jdbcTemplate.update(member_insert,vo.getMid(),vo.getPassword(),vo.getName(),vo.getRole());
+    }
+
+    public void update(MemberVO vo){
+        System.out.println("update 수행중");
+        jdbcTemplate.update(member_update,vo.getPassword(),vo.getName(),vo.getMid());
     }
 
 }

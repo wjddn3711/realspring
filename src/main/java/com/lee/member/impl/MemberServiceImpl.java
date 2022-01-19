@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
 	@Autowired
-	private MemberDAO memberDAO;
+	private MemberDAO2 memberDAO;
 //
 //	public MemberDAO getMemberDAO() {
 //		return memberDAO;
@@ -26,6 +26,17 @@ public class MemberServiceImpl implements MemberService {
 			return null; // 문제가 있는 경우 null을 반환하도록
 		}
 	}
+
+	@Override
+	public void insert(MemberVO vo) {
+		memberDAO.insert(vo);
+	}
+
+	@Override
+	public void update(MemberVO vo) {
+		memberDAO.update(vo);
+	}
+
 
 //	@Override
 //	public void insert(MemberVO vo) throws Exception{

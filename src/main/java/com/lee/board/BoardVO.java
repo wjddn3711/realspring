@@ -8,6 +8,25 @@ public class BoardVO {
 	private String writer;
 	private String content;
 	private Date bdate;
+	private String searchCondition;
+	private String searchContent;
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public String getSearchContent() {
+		return searchContent;
+	}
+
 	private int cnt;
 	public int getBid() {
 		return bid;
@@ -45,9 +64,18 @@ public class BoardVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
+
 	@Override
 	public String toString() {
-		return "BoardVO [bid=" + bid + ", title=" + title + ", writer=" + writer + ", content=" + content + ", bdate="
-				+ bdate + ", cnt=" + cnt + "]";
+		return "BoardVO{" +
+				"bid=" + bid +
+				", title='" + title + '\'' +
+				", writer='" + writer + '\'' +
+				", content='" + content + '\'' +
+				", bdate=" + bdate +
+				", searchCondition='" + searchCondition + '\'' +
+				", searchContent='" + searchContent + '\'' +
+				", cnt=" + cnt +
+				'}';
 	}
 }

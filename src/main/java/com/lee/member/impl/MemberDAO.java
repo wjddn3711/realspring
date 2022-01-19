@@ -10,7 +10,7 @@ import com.lee.member.MemberVO;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("memberDAO")
+//@Repository("memberDAO")
 public class MemberDAO {
 	private Connection conn=null;
 	private PreparedStatement pstmt=null;

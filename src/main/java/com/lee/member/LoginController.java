@@ -6,7 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import com.lee.member.impl.MemberDAO;
 import com.lee.member.impl.MemberDAO2;
+import com.lee.member.impl.MemberServiceImpl;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController{
 	// 오버로딩 			vs 	오버라이딩
 	// 함수명 중복정의 허용	vs 	메서드 재정의
-
+	@Autowired
+	MemberService ms;
 	// login
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String showLogin(MemberVO vo){
@@ -31,9 +34,9 @@ public class LoginController{
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(MemberVO vo, MemberDAO dao, HttpSession session, Model model){
+	public String login(MemberVO vo, HttpSession session, Model model){
 		System.out.println("로그 : login() @controller");
-		MemberVO data = dao.selectOne(vo);
+		MemberVO data = ms.selectOne(vo);
 		if(data!=null) {
 			model.addAttribute("user",data);
 //			session.setAttribute("userName",data.getName());
@@ -57,11 +60,11 @@ public class LoginController{
 
 	// signup
 	@RequestMapping(value = "/signup.do")
-	public String signup(MemberVO vo, MemberDAO2 dao){
+	public String signup(MemberVO vo){
 		System.out.println("로그 : signup() @controller");
 		System.out.println(vo);
 		try {
-			dao.insert(vo);
+			ms.insert(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,17 +72,17 @@ public class LoginController{
 	}
 
 	// mypage
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String mypage(@ModelAttribute("user") MemberVO vo){
-		System.out.println("get mypage @controller");
-		return "mypage.jsp";
-	}
-
-	@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
-	public String mypage(@ModelAttribute("user")MemberVO vo, MemberDAO dao){
-		System.out.println("post mypage @controller");
-		System.out.println(vo);
-		dao.updateMember(vo);
-		return "main.do";
-	}
+//	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+//	public String mypage(@ModelAttribute("user") MemberVO vo){
+//		System.out.println("get mypage @controller");
+//		return "mypage.jsp";
+//	}
+//
+//	@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
+//	public String mypage(@ModelAttribute("user")MemberVO vo){
+//		System.out.println("post mypage @controller");
+//		System.out.println(vo);
+//		ms.update(vo);
+//		return "main.do";
+//	}
 }
