@@ -13,13 +13,12 @@ import org.springframework.stereotype.Service;
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	private BoardDAO boardDAO;
+	private BoardDAO2 boardDAO;
 
 
 	@Override
 	public void insertBoard(BoardVO vo) {
-
-		boardDAO.insertBoard(vo);
+//		boardDAO.insertBoard(vo);
 		boardDAO.insertBoard(vo); // 트랜잭션 실습중
 	}
 
@@ -46,6 +45,7 @@ public class BoardServiceImpl implements BoardService {
 //		if(vo.getWriter().equals("티모")){
 //			throw new IllegalArgumentException("일부러 발생시킨 예외");
 //		}
+		System.out.println("검색 로직 추가됨!");
 		return boardDAO.selectAll(vo);
 	}
 

@@ -16,7 +16,7 @@ public class MemberDAO2 {
 
     private String member_selectOne="select * from member2 where mid=? and password=?";
     private String member_insert ="insert into member2 values (?,?,?,?)";
-    private String member_update ="update member set password=?,name=? where mid=?";
+    private String member_update ="update member2 set password=?,name=? where mid=?";
 
     public MemberVO selectOne(MemberVO vo) throws Exception { // 모델에서 처리하지 않고 예외를 떠넘긴다
         Object[] obj = {vo.getMid(),vo.getPassword()};

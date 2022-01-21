@@ -12,7 +12,7 @@ import com.lee.common.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("boardDAO")
+//@Repository("boardDAO")
 public class BoardDAO {
 	private Connection conn=null;
 	private PreparedStatement pstmt=null;
@@ -23,6 +23,10 @@ public class BoardDAO {
 	private String board_delete="delete from board2 where bid=?";
 	private String board_selectOne="select * from board2 where bid=?";
 	private String board_selectAll="select * from board2 order by bid desc";
+	// 작성자로 검색
+	private String board_selectSearchWriter = "select * from board2 where writer like ? order by bid desc";
+	// 제목으로 검색
+	private String board_selectSearchTitle = "select * from board2 where title like ? order by bid desc";
 
 	public void insertBoard(BoardVO vo) {
 		conn= JDBCUtil.connect();
@@ -91,6 +95,13 @@ public class BoardDAO {
 		List<BoardVO> datas=new ArrayList<BoardVO>();
 		conn=JDBCUtil.connect();
 		try {
+			if(vo.getSearchCondition().equals("title")){
+				pstmt=conn.prepareStatement(board_selectSearchTitle);
+			}
+			else if(vo.getSearchContent().equals("writer")){
+				pstmt=conn.prepareStatement(board_selectSearchWriter);
+			}
+			pstmt.setString(1,"%"+vo.getTitle()+"%");
 			pstmt=conn.prepareStatement(board_selectAll);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {

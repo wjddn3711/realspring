@@ -23,6 +23,10 @@
 			<td>${data.writer}</td>
 		</tr>
 		<tr>
+			<td>이미지</td>
+			<td><img src="${data.filepath}" alt="이미지"></td>board2
+		</tr>
+		<tr>
 			<td>글 내용</td>
 			<td><input type="text" name="content" value="${data.content}"></td>
 		</tr>

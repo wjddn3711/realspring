@@ -24,15 +24,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Repository("boardDAO")
+@Repository("boardDAO")
 public class BoardDAO2{
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private String board_insert="insert into board2(title,writer,content) values(?,?,?)";
+    private String board_insert="insert into board2(title,writer,content,bdate,file) values(?,?,?,now(),?)";
     private String board_update="update board2 set title=?,content=? where bid=?";
     private String board_delete="delete board2 where bid=?";
     private String board_selectOne="select * from board2 where bid=?";
     private String board_selectAll="select * from board2 order by bid desc";
+    // 작성자로 검색
+    private String board_selectSearchWriter = "select * from board2 where writer like ? order by bid desc";
+    // 제목으로 검색
+    private String board_selectSearchTitle = "select * from board2 where title like ? order by bid desc";
+
 
 //    @Autowired // 주로 멤버변수 위에서 타입을 먼저보고 DI
 //    public void setSuperDataSource(DataSource dataSource){
@@ -44,8 +49,8 @@ public class BoardDAO2{
 
 
     public void insertBoard(BoardVO vo) {
-        System.out.println("insert 수행중");
-        jdbcTemplate.update(board_insert,vo.getTitle(),vo.getWriter(),vo.getContent());
+        System.out.println("insert 수행중"+vo.getFilepath()) ;
+        jdbcTemplate.update(board_insert,vo.getTitle(),vo.getWriter(),vo.getContent(),vo.getFilepath());
     }
     public void updateBoard(BoardVO vo) {
         System.out.println("update 수행중");
@@ -62,7 +67,16 @@ public class BoardDAO2{
     }
     public List<BoardVO> selectAll(BoardVO vo) {
         System.out.println("selectAll 수행중");
-        return jdbcTemplate.query(board_selectAll, new BoardRowMapper());
+        String sql;
+
+        if(vo.getSearchCondition().equals("title")){
+            sql = board_selectSearchTitle;
+        }
+        else {
+            sql = board_selectSearchWriter;
+        }
+        return jdbcTemplate.query(sql, new BoardRowMapper(),"%"+vo.getSearchContent()+"%");
+
     }
 }
 
@@ -77,6 +91,7 @@ class BoardRowMapper implements RowMapper<BoardVO> {
         data.setContent(rs.getString("content"));
         data.setTitle(rs.getString("title"));
         data.setWriter(rs.getString("writer"));
+        data.setFilepath(rs.getString("file"));
         return data;
     }
 }

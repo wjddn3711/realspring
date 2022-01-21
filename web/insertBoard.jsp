@@ -10,7 +10,7 @@
 <h1>글 작성 페이지</h1>
 <a href="main.do">메인 페이지로 이동하기</a>
 <hr>
-<form action="insertBoard.do" method="post">
+<form action="insertBoard.do" method="post" enctype="multipart/form-data">
 	<table border="1">
 		<tr>
 			<td>글 제목</td>
@@ -23,6 +23,10 @@
 		<tr>
 			<td>글 내용</td>
 			<td><input type="text" name="content"></td>
+		</tr>
+		<tr>
+			<td>파일 업로드</td>
+			<td><input type="file" name="file" accept="image/*"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="submit" value="글 등록하기"></td>

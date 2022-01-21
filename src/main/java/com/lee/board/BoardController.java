@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +27,7 @@ public class BoardController{
 	@Autowired
 	BoardService bs;
 
+	final String path = "/Users/jungwoo/Desktop/Spring/realspring/web/images/";
 
 	// @RequestMapping 보다 먼저 호출되는 @MA
 	@ModelAttribute("conditionMap")
@@ -37,9 +41,11 @@ public class BoardController{
 
 	// board
 	@RequestMapping(value = "/board.do")
-	public String board(BoardVO vo,  ModelAndView mav, HttpServletRequest request, Model model){
+	public String board(BoardVO vo, Model model){
 		System.out.println("로그 : board() @컨트롤러");
-		model.addAttribute("data",bs.selectOne(vo));
+		BoardVO l = bs.selectOne(vo);
+		System.out.println(l);
+		model.addAttribute("data",l);
 		return "board.jsp";
 	}
 
@@ -73,6 +79,21 @@ public class BoardController{
 	@RequestMapping(value = "/insertBoard.do") // handlerMapping 대체
 	public String insertBoard(BoardVO vo){
 		System.out.println("로그 : insertBoard() @컨트롤러");
+		MultipartFile file = vo.getFile();
+		if(!file.isEmpty()){
+			// 업로드를 했다면,
+			String fileName = file.getOriginalFilename();
+			System.out.println(fileName);
+			try {
+				file.transferTo(new File(path+fileName));
+			} catch (IOException e) {
+				System.out.println("해당 경로는 존재하지 않습니다");
+			}
+			vo.setFilepath("images/"+fileName);
+		}
+		else{
+			vo.setFilepath("images/2.png");
+		}
 		bs.insertBoard(vo);
 		return "main.do";
 	}

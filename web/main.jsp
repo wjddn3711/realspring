@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +10,10 @@
 </head>
 <body>
 
-<h1>게시글 목록</h1>
-<h2>${user.name}님, 안녕하세요! :D</h2>
-<a href="logout.do">로그아웃</a>
-<a href="mypage.do">마이페이지</a>
+<h1><spring:message code="message.header.title"/></h1>
+<h2>${user.name}<spring:message code="message.header.hello"/></h2>
+<a href="logout.do"><spring:message code="message.header.logout"/></a>
+<a href="mypage.do"><spring:message code="message.footer.member"/></a>
 
 <hr>
 
@@ -25,17 +26,17 @@
 				</c:forEach>
 			</select></td>
 			<td><input type="text" name="searchContent" /></td>
-			<td><input type="submit" value="검색하기" /></td>
+			<td><input type="submit" value="<spring:message code="message.body.search"/> " /></td>
 		</tr>
 	</table>
 </form>
 <table border="1" width="1000">
 	<tr>
-		<th>글 번호</th>
-		<th>글 제목</th>
-		<th>작성자</th>
-		<th>작성일</th>
-		<th>조회수</th>
+		<th><spring:message code="message.body.table.num"/> </th>
+		<th><spring:message code="message.body.table.title"/></th>
+		<th><spring:message code="message.body.table.writer"/></th>
+		<th><spring:message code="message.body.table.reg"/></th>
+		<th><spring:message code="message.body.table.cnt"/> </th>
 	</tr>
 	<c:forEach var="v" items="${datas}">
 		<tr>
@@ -50,7 +51,7 @@
 
 <hr>
 
-<a href="insertBoard.jsp">글 작성하기</a>
+<a href="insertBoard.jsp"><spring:message code="message.footer.board"/> </a>
 
 </body>
 </html>

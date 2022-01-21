@@ -1,5 +1,7 @@
 package com.lee.board;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.sql.Date;
 
 public class BoardVO {
@@ -10,6 +12,41 @@ public class BoardVO {
 	private Date bdate;
 	private String searchCondition;
 	private String searchContent;
+
+	private MultipartFile file;
+	private String filepath;
+
+	@Override
+	public String toString() {
+		return "BoardVO{" +
+				"bid=" + bid +
+				", title='" + title + '\'' +
+				", writer='" + writer + '\'' +
+				", content='" + content + '\'' +
+				", bdate=" + bdate +
+				", searchCondition='" + searchCondition + '\'' +
+				", searchContent='" + searchContent + '\'' +
+				", file=" + file +
+				", filepath='" + filepath + '\'' +
+				", cnt=" + cnt +
+				'}';
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
 
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
@@ -65,17 +102,4 @@ public class BoardVO {
 		this.cnt = cnt;
 	}
 
-	@Override
-	public String toString() {
-		return "BoardVO{" +
-				"bid=" + bid +
-				", title='" + title + '\'' +
-				", writer='" + writer + '\'' +
-				", content='" + content + '\'' +
-				", bdate=" + bdate +
-				", searchCondition='" + searchCondition + '\'' +
-				", searchContent='" + searchContent + '\'' +
-				", cnt=" + cnt +
-				'}';
-	}
 }

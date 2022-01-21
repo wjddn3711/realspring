@@ -16,7 +16,7 @@
     <table border="1">
         <tr>
             <td>아이디</td>
-            <td><input type="text" name="mid" placeholder="${user.mid}" required></td>
+            <td>${user.mid}</td>
         </tr>
         <tr>
             <td>비밀번호</td>

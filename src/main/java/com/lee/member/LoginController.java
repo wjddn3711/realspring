@@ -72,17 +72,18 @@ public class LoginController{
 	}
 
 	// mypage
-//	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-//	public String mypage(@ModelAttribute("user") MemberVO vo){
-//		System.out.println("get mypage @controller");
-//		return "mypage.jsp";
-//	}
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
+	public String mypage(@ModelAttribute("user") MemberVO vo){
+		System.out.println("get mypage @controller");
+		System.out.println(vo);
+		return "mypage.jsp";
+	}
 //
-//	@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
-//	public String mypage(@ModelAttribute("user")MemberVO vo){
-//		System.out.println("post mypage @controller");
-//		System.out.println(vo);
-//		ms.update(vo);
-//		return "main.do";
-//	}
+	@RequestMapping(value = "/mypage.do", method = RequestMethod.POST)
+	public String mypage2(@ModelAttribute("user")MemberVO vo){
+		System.out.println("post mypage @controller 변경");
+		System.out.println(vo);
+		ms.update(vo);
+		return "main.do";
+	}
 }
