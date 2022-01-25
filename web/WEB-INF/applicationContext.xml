@@ -37,15 +37,17 @@
         <property name="password" value="dnflwlq0527!"/>
     </bean>
 
-<!--&lt;!&ndash;    mybatis 설정&ndash;&gt;-->
-<!--    <bean class="org.mybatis.spring.SqlSessionFactoryBean">-->
-<!--        <property name="dataSource"  ref="dataSource"></property>-->
-<!--        <property name="configLocation"  value="classpath:sql-map-config" />-->
-<!--        <property name="mapperLocations" value="classpath:board-mapping" /> &lt;!&ndash;중요&ndash;&gt;-->
-<!--    </bean>-->
+<!--    mybatis 설정-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSession">
+        <property name="dataSource"  ref="dataSource"/>
+        <property name="configLocation"  value="classpath:sql-map-config.xml" />
+    </bean>
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSession"/>
+    </bean>
 
 
-<!--    JdbcTemplate 클래스 <bean> 등록하여 DI-->
+    <!--    JdbcTemplate 클래스 <bean> 등록하여 DI-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>

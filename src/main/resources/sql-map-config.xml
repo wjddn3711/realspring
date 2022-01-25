@@ -3,23 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="db.properties"/>
     <typeAliases>
-        <typeAlias type="com.lee.board.BoardVO" alias="board"></typeAlias>
+        <typeAlias type="com.lee.board.BoardVO" alias="board"/>
+        <typeAlias type="com.lee.member.MemberVO" alias="member"/>
     </typeAliases>
-
-<!--    dataSource 관련 설정-->
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="${jdbc.driver}"/>
-                <property name="url" value="${jdbc.url}"/>
-                <property name="username" value="${jdbc.username}"/>
-                <property name="password" value="${jdbc.password}"/>
-            </dataSource>
-        </environment>
-    </environments>
 
 <!--    Sql Mapper 설정-->
     <mappers>

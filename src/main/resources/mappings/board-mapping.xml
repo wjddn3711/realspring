@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="BoardDAO">
-    <insert id="insertBoard">insert into board2(title,writer,content,bdate,file) values(#{title},#{writer},#{content},now(),#{filepath})</insert>
-    <select id="selectOne" resultType="board">select * from board2 where bid=#{bid}</select>
-    <select id="selectAll" resultType="board">select * from board2 where writer like '%'||#{searchContent}||'%' order by bid desc</select>
-    <update id="updateBoard">update board2 set title=#{title},content=#{content} where bid=#{bid}</update>
-    <delete id="deleteBoard">delete board2 where bid=#{bid}</delete>
+    <resultMap id="boardResult" type="board">
+        <id property="bid" column="bid"/>
+        <result property="title" column="title"/>
+        <result property="writer" column="writer"/>
+        <result property="content" column="content"/>
+        <result property="bdate" column="bdate"/>
+        <result property="cnt" column="cnt"/>
+        <result property="filepath" column="filepath"/>
+    </resultMap>
+    <insert id="insertBoard">
+        INSERT INTO BOARD2(TITLE,WRITER,CONTENT,BADTE,FILEPATH) VALUES(#{title},#{writer},#{content},NOW(),#{filepath})
+    </insert>
+    <select id="selectOne" resultType="board" resultMap="boardResult">
+        SELECT * FROM BOARD2 WHERE BID=#{bid}
+    </select>
+
+    <select id="selectT" parameterType="board" resultMap="boardResult">
+      <![CDATA[
+        SELECT * FROM BOARD WHERE TITLE LIKE '%'||#{searchContent}||'%' ORDER BY BID DESC
+        ]]>
+   </select>
+    <select id="selectW" parameterType="board" resultMap="boardResult">
+      <![CDATA[
+        SELECT * FROM BOARD WHERE WRITER LIKE '%'||#{searchContent}||'%' ORDER BY BID DESC
+        ]]>
+   </select>
+
+    <update id="updateBoard">
+        UPDATE BOARD2 SET TITLE=#{title}, CONTENT=#{content} WHERE BID=#{bid}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE BOARD2 WHERE BID=#{bid}
+    </delete>
 </mapper>
+
+<!--<mapper namespace="MemberDAO">-->
+<!--    <insert id="insert">-->
+<!--        INSERT INTO MEMBER2 VALUES (#{mid},#{password},#{name},#{role})-->
+<!--    </insert>-->
+<!--    <update id="update">-->
+<!--        UPDATE MEMBER2 SET PASSWORD=#{password}, NAME=#{name} WHERE MID=#{mid}-->
+<!--    </update>-->
+<!--    <select id="selectOne" resultType="member">-->
+<!--        SELECT * FROM MEMBER2 WHERE MID=#{mid} AND PASSWORD=#{password}-->
+<!--    </select>-->
+<!--</mapper>-->

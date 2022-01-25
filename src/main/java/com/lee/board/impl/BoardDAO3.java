@@ -3,32 +3,39 @@ package com.lee.board.impl;
 import com.lee.board.BoardVO;
 import com.lee.board.SqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public class BoardDAO3 {
-    private SqlSession mybatis;
-    public BoardDAO3() {
-        mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
-    }
+// 1. 상속
+// 2. @
+@Repository("boardDAO")
+public class BoardDAO3  {
+
+    @Autowired
+    private SqlSessionTemplate mybatis;
 
     public void insertBoard(BoardVO vo){
         mybatis.insert("BoardDAO.insertBoard",vo);
-        mybatis.commit(); // 기본이 autocommit
     }
 
     public void updateBoard(BoardVO vo){
         mybatis.update("BoardDAO.updateBoard",vo);
-        mybatis.commit(); // 기본이 autocommit
     }
 
     public void deleteBoard(BoardVO vo){
         mybatis.insert("BoardDAO.deleteBoard",vo);
-        mybatis.commit(); // 기본이 autocommit
     }
 
     public List<BoardVO> selectAll(BoardVO vo){
-        return mybatis.selectList("BoardDAO.selectAll",vo);
+        if(vo.getSearchCondition().equals("title")){
+            return mybatis.selectList("BoardDAO.selectT",vo);
+        }
+        return mybatis.selectList("BoardDAO.selectW",vo);
     }
 
     public BoardVO selectOne(BoardVO vo){
