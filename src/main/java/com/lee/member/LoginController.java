@@ -35,6 +35,9 @@ public class LoginController{
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(MemberVO vo, HttpSession session, Model model){
+		if(vo.getMid()==null|| vo.getMid().equals("")){
+			throw new IllegalArgumentException("아이디를 입력하지 않았습니다");
+		}
 		System.out.println("로그 : login() @controller");
 		MemberVO data = ms.selectOne(vo);
 		if(data!=null) {
